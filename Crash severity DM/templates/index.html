@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crash Type Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Crash Type Prediction</h1>
+        <form method="POST" action="/predict">
+            {% for feature in ['REPORT_TYPE','INJURIES_TOTAL','MOST_SEVERE_INJURY','DAMAGE',
+                               'BEAT_OF_OCCURRENCE','STREET_NAME','FIRST_CRASH_TYPE',
+                               'CRASH_HOUR','INJURIES_NON_INCAPACITATING','PRIM_CONTRIBUTORY_CAUSE'] %}
+            <label for="{{ feature }}">{{ feature.replace('_', ' ').title() }}</label>
+            <input type="text" name="{{ feature }}" required>
+            {% endfor %}
+            <button type="submit">Predict</button>
+        </form>
+        {% if prediction %}
+        <div class="result">{{ prediction }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
